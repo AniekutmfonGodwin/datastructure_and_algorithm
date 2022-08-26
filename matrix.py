@@ -154,3 +154,54 @@ def first_non_repeated(string:str):
     return ""
 
 print("first non repeated character ",first_non_repeated("absbdgg"))
+
+
+
+def find_number(matrix,number):
+    c = len(matrix[0])
+    r = len(matrix)
+
+    ri = 0
+    ci = c-1
+
+    while ri < r and ci >=0:
+        item = matrix[ri][ci]
+
+        if number > item:
+            ri +=1
+        elif number < item:
+            ci -=1
+
+        else:
+            return ri,ci
+
+    return -1,-1
+
+
+# print(
+#     "find ",
+#     find_number(
+#     [
+#         [1,2,3,4],
+#         [5,6,7,8],
+#         [9,10,11,12]
+#     ],
+#     7
+# )
+# )
+
+
+
+def permute(LIST):
+    length=len(LIST)
+    if length <= 1:
+        yield LIST
+    else:
+        for n in range(0,length):
+             for end in permute( LIST[:n] + LIST[n+1:] ):
+                 yield [ LIST[n] ] + end
+
+# for x in permute(["3","3","4"]):
+#     print(x)
+
+

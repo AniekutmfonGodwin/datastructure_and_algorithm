@@ -210,7 +210,7 @@ def max_for_contegent_arr(arr,k):
     print(res)
     return res
 
-print("array ",max_for_contegent_arr([2,5,3,7,6,4,8],3))
+# print("array ",max_for_contegent_arr([2,5,3,7,6,4,8],3))
 
 def merge_sorted(head1, head2):
     
@@ -252,3 +252,360 @@ def merge_sorted(head1, head2):
     return head
 
 # def number_of_iland():
+
+
+
+def format_paragraph(paragraphs,width):
+    results = []
+
+    for i,items in enumerate(paragraphs):
+        line = " ".join(items)
+        if len(line) > width:
+            inner = ""
+            for item in items:
+                if len(inner+item)>width:
+                    if inner!="":
+                        results.append(inner)
+                        inner = ""
+                else:
+                    inner +=" "+item
+            if inner:
+                results.append(inner)
+
+        else:
+            results.append(line)
+
+    return results
+
+
+# print(format_paragraph([
+#     ["hello","world"],
+#     ["how","areYou","doing"],
+#     ["please look","and align","to center"]
+# ],16))
+
+
+def get_median_of_metrix(m):
+    result = list()
+
+
+    for row in m:
+        for column in row:
+            result.append(column)
+
+    
+
+    result.sort()
+    if len(result)%2==0:
+        mid = (len(result)-1)//2
+        return (result[mid] + result[mid+1])//2
+    else:
+        mid = (len(result)-1)//2
+        return result[mid]
+
+    
+
+
+# print("median of a matrix ",get_median_of_metrix([
+#     [1,2,3],
+#     [4,5,6],
+#     [6,7,8]
+# ]))
+
+
+
+
+
+
+
+class Tree:
+
+    def __init__(self,data=None,left = None,right = None) -> None:
+        self.left = left
+        self.right = right
+        self.data = data
+
+
+    
+
+def printInOrder(node:Tree):
+
+
+    if node:
+
+        printInOrder(node.left)
+
+        print(node.data)
+
+        printInOrder(node.right)
+
+
+def findMaxHeight(node):
+
+    if node is None:
+        return 0
+
+    lh = findMaxHeight(node.left)
+    rh = findMaxHeight(node.right)
+
+    if lh > rh:
+        return 1 + lh
+    return 1 + rh
+
+def printInOrderUsingStack(node:Tree):
+
+    stack = [node]
+
+    while stack:
+        temp_node:Tree = stack.pop()
+        print(temp_node.data)
+        if temp_node.right:
+            stack.append(temp_node.right)
+        if temp_node.left:
+            stack.append(temp_node.left)
+
+
+
+node = Tree(
+    data=10,
+    left=Tree(
+        data = 20,
+        left=Tree(
+            data=30
+        )
+    ),
+    right=Tree(
+        data = 33,
+        left = Tree(
+            data = 50
+        )
+    )
+)
+
+
+printInOrderUsingStack(node)
+
+
+
+# mirror tree
+
+class Solution:
+    #Function to convert a binary tree into its mirror tree.
+    def mirror(self,root):
+        # Code here
+        if root is None:
+            return
+        
+        temp = root
+        self.mirror(root.left)
+        self.mirror(root.right)
+        
+        temp=root.left
+        root.left=root.right
+        root.right=temp
+
+
+
+
+
+a = [1,2,3]
+print("a ref ",id(a))
+
+b = [1,2,3]
+print("b ref ",id(b))
+
+a,b = b,a
+
+print("a ref ",id(a))
+
+print("b ref ",id(b))
+
+
+
+def height(root:Tree):
+
+    if root is None:
+        return 0
+
+    lh = height(root.left)
+    rh = height(root.right)
+
+    if lh > rh:
+        return 1 + height(root.left)
+
+    return 1 + height(root.right)
+
+
+# print(" node ",height(node))
+
+
+
+
+def reverse_string(string:str):
+
+    if not string:
+        return ''
+
+    return string[-1] + reverse_string(string[:-1])
+
+
+
+def sort_recur(arr:list):
+
+    if not arr:
+        return []
+    mi = min(arr)
+    arr.remove(mi)
+    return [mi] + sort_recur(arr)
+
+a = [2,3,1,5,6,2,1]
+
+# print("sorted array ",sort_recur(a))
+
+
+
+def find_min(arr):
+
+    start_pointer = 0
+    end_pointer = len(arr) -1
+    mi = float("inf")
+
+    while start_pointer < end_pointer:
+        
+        if arr[end_pointer] < mi:
+            mi = arr[end_pointer]
+            end_pointer -=1
+        else:
+            mi = arr[start_pointer]
+            start_pointer +=1
+
+    print("min ",mi)
+    return mi
+
+
+print("find min ",find_min([2,4,2,3,6]))
+
+
+
+def palindrom_check(string,start,end):
+
+    if start > end:
+        return True
+
+    if string[start] == string[end]:
+        return True and palindrom_check(string,start+1,end-1)
+
+    return False
+
+
+
+string = "racecar"
+
+start = 0
+end = len(string) -1
+
+print("palindrom check ",palindrom_check(string,start,end))
+
+        
+
+
+    
+    
+
+
+
+# print("reverse string ",reverse_string("hello world"))
+
+
+
+def decimal_to_binary(number):
+
+    if number == 0:
+        return ""
+    
+    res = number//2
+    rem = number%2
+    return  decimal_to_binary(res) + str(rem)
+
+
+
+# print("binary number ",decimal_to_binary(20))
+
+
+def target_exists(node:Tree,target):
+    if node is None:
+        return False
+    stack = [node]
+
+
+    while stack:
+        current = stack.pop(0)
+        if current.data == target:
+            return True
+
+        if current.left:
+            stack.append(current.left)
+
+        if current.right:
+            stack.append(current.right)
+
+    return False
+
+
+# print("target exists ",target_exists(node,100))
+
+
+
+def tree_sum(node:Tree):
+    
+    if node is None:
+        return 0
+
+
+    return node.data + tree_sum(node.left) + tree_sum(node.right)
+
+
+# print("sum ",tree_sum(node))
+
+mi = float("inf")
+
+def min_of_tree(node:Tree):
+    global mi
+    if node is None:
+        return float("inf")
+    
+    if node.data < mi:
+        mi = node.data
+
+    min_of_tree(node.left)
+    min_of_tree(node.right)
+
+
+# min_of_tree(node)
+
+# print("mi ",mi)
+
+
+
+def first_duplicate(arr,index=0):
+
+    if not arr:
+        return -1
+
+    if arr[index] in arr[:index]:
+        return arr[index]
+
+    return first_duplicate(arr,index+1)
+
+
+# print(" dd",first_duplicate([1,2,3,4,5,6,2,7,5]))
+
+
+def flippingMatrix(matrix):
+    # Write your code here
+    result = 0
+    for i in range(n):
+        for j in range(n):
+            list = [matrix[i][j],matrix[i][2*n-1-j],matrix[2*n-1-i][j],matrix[2*n-1-i][2*n-1-j]]
+            result +=max(list)
+    return result
